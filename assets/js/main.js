@@ -19,12 +19,22 @@ function limpaInput() {
   inputTarefa.focus()
 }
 
-function criaBotaoApagar(li) {
+function criaBotao(li) {
   li.innerText += ' ';
   const botaoApagar = document.createElement('button')
   botaoApagar.innerHTML = 'Apagar';
   botaoApagar.setAttribute('class', 'apagar')
   li.appendChild(botaoApagar)
+
+  const botaoConcluido = document.createElement('button')
+  botaoConcluido.innerHTML = 'Concluir tarefa'
+  botaoConcluido.setAttribute('class', 'concluir')
+  li.appendChild(botaoConcluido)
+
+  const botaoDesfazer = document.createElement('button')
+  botaoDesfazer.innerHTML = 'Desfazer';
+  botaoDesfazer.setAttribute('class', 'desfazer')
+  li.appendChild(botaoDesfazer)
 }
 
 function criaTarefa(textoInput) {
@@ -32,7 +42,7 @@ function criaTarefa(textoInput) {
   li.innerHTML = textoInput;
   tarefas.appendChild(li);
   limpaInput();
-  criaBotaoApagar(li);
+  criaBotao(li);
   salvarTarefas();
 }
 
@@ -43,10 +53,26 @@ btnTarefa.addEventListener('click', () => {
 
 document.addEventListener('click', e => {
   const el = e.target;
+  const botaoApagar = el.classList.contains('apagar')
+  const botaoConcluir = el.classList.contains('concluir')
+  const botaoDesfazer = el.classList.contains('desfazer')
 
-  if(el.classList.contains('apagar')) {
+  if(botaoApagar) {
     el.parentElement.remove()
     salvarTarefas()
+  }
+
+  if(botaoConcluir) {
+    el.parentElement.style.color = '#0F0'
+    salvarTarefas()
+  }
+
+  if(botaoDesfazer) {
+    if (el.parentElement.style.color === 'rgb(0, 255, 0)') {
+    el.parentElement.style.color = '#000'
+    } else {
+      alert('Você precisa concluir a tarefa primeiro')
+    }
   }
 })
 

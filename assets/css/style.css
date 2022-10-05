@@ -56,3 +56,16 @@ form button {
 form button:hover {
   background: var(--primary-color-darker);
 }
+
+.container {
+  text-align: center;
+}
+
+.tarefas {
+  text-align: left;
+  overflow-x: hidden;
+}
+
+.tarefas button {
+  margin: 0px 4px;
+}
